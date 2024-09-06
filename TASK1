@@ -1,71 +1,60 @@
 /*SIMPLE CALCULATOR */
-class GradeManager:
-    def __init__(self):
-        self.grades = {}
+def add(x, y):
+    return x + y
 
-    def add_grade(self, subject, grade):
-        if subject in self.grades:
-            self.grades[subject].append(grade)
-        else:
-            self.grades[subject] = [grade]
+def subtract(x, y):
+    return x - y
 
-    def calculate_average(self):
-        total_sum = 0
-        total_count = 0
-        for grades in self.grades.values():
-            total_sum += sum(grades)
-            total_count += len(grades)
-        return total_sum / total_count if total_count > 0 else 0
+def multiply(x, y):
+    return x * y
 
-    def calculate_gpa(self):
-        average = self.calculate_average()
-        return average / 10  # Assume GPA is on a 4.0 scale for simplicity
-
-    def get_letter_grade(self):
-        average = self.calculate_average()
-        if average >= 90:
-            return 'A'
-        elif average >= 80:
-            return 'B'
-        elif average >= 70:
-            return 'C'
-        elif average >= 60:
-            return 'D'
-        else:
-            return 'F'
-
-    def display_results(self):
-        average = self.calculate_average()
-        gpa = self.calculate_gpa()
-        letter_grade = self.get_letter_grade()
-
-        print("\n--- Grade Summary ---")
-        for subject, grades in self.grades.items():
-            print(f"{subject}: {grades}")
-
-        print(f"\nAverage Grade: {average:.2f}")
-        print(f"Letter Grade: {letter_grade}")
-        print(f"GPA: {gpa:.2f}")
-
+def divide(x, y):
+    if y == 0:
+        return "Error: Division by zero is not allowed."
+    return x / y
 
 def main():
-    manager = GradeManager()
-    print("Welcome to the Grade Manager Program!")
+    print("Welcome to the basic calculator!")
     
-    while True:
-        action = input("\nWould you like to (A)Add a grade, (D)Display results, or (Q)Quit? ").strip().upper()
-        
-        if action == 'A':
-            subject = input("Enter the subject/assignment name: ").strip()
-            grade = float(input("Enter the grade: "))
-            manager.add_grade(subject, grade)
-        elif action == 'D':
-            manager.display_results()
-        elif action == 'Q':
-            print("Exiting the Grade Manager Program.")
-            break
-        else:
-            print("Invalid choice. Please enter 'A', 'D', or 'Q'.")
+    # Get user input for the first number
+    try:
+        num1 = float(input("Enter the first number: "))
+    except ValueError:
+        print("Invalid input! Please enter a numerical value.")
+        return
+    
+    # Get user input for the second number
+    try:
+        num2 = float(input("Enter the second number: "))
+    except ValueError:
+        print("Invalid input! Please enter a numerical value.")
+        return
+    
+    # Display operation choices
+    print("\nChoose an operation:")
+    print("1. Addition (+)")
+    print("2. Subtraction (-)")
+    print("3. Multiplication (*)")
+    print("4. Division (/)")
+
+    # Get user input for the operation
+    operation = input("Enter the number corresponding to the operation: ")
+
+    # Perform the chosen operation
+    if operation == '1' or operation == '+':
+        result = add(num1, num2)
+    elif operation == '2' or operation == '-':
+        result = subtract(num1, num2)
+    elif operation == '3' or operation == '*':
+        result = multiply(num1, num2)
+    elif operation == '4' or operation == '/':
+        result = divide(num1, num2)
+    else:
+        print("Invalid operation selected!")
+        return
+    
+    # Display the result
+    print(f"The result of the operation is: {result}")
 
 if __name__ == "__main__":
     main()
